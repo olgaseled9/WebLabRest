@@ -1,4 +1,5 @@
-## Лабораторная работа №6 REST API
+## Лабораторная работа №6
+REST API
 
 http://localhost:5176/swagger/index.html 
 
