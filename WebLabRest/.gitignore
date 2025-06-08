@@ -1,0 +1,79 @@
+## Rider
+.idea/
+*.sln.iml
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## MonoDevelop
+*.userprefs
+
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+
+## Rider logs
+.idea/.idea.*
+
+## VS Code
+.vscode/
+
+## Rider coverage reports
+.idea/.idea_modules/
+.idea_modules/
+
+# JetBrains Rider-specific caches
+.idea/
+*.sln.iml
+
+## ASP.NET Core
+project.lock.json
+project.fragment.lock.json
+
+## Packages
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+
+## EF Core
+Migrations/
+
+## User secrets
+secrets.json
+
+## Logs
+*.log
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Rider caches
+.idea/
+.idea_modules/
+
+## ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+## Other dev stuff
+node_modules/
+dist/
+.env
+*.db
+*.sqlite
+
+# SQL Server files
+*.mdf
+*.ldf
+
+# Ignore publish artifacts
+publish/
