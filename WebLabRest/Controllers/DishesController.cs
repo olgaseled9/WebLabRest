@@ -140,7 +140,25 @@ public class DishesController : ControllerBase
         
         return NoContent();
     }
+    
+    [HttpPost("{id}/upload")]
+    public async Task<IActionResult> UploadImage(int id, IFormFile file)
+    {
+        var dish = await _context.Dishes.FindAsync(id);
+        if (dish == null) return NotFound();
 
+        var ext = Path.GetExtension(file.FileName);
+        var fileName = Path.GetRandomFileName() + ext;
+        var imagePath = Path.Combine(_env.WebRootPath, "Images", fileName);
+
+        using var stream = new FileStream(imagePath, FileMode.Create);
+        await file.CopyToAsync(stream);
+
+        dish.Image = $"https://localhost:7002/Images/{fileName}";
+        await _context.SaveChangesAsync();
+
+        return Ok(new { dish.Image });
+    }
     private bool DishExists(int id)
     {
         return _context.Dishes.Any(e => e.Id == id);

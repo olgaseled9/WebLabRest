@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WebLab.Entities;
+using WebLabRest.Models;
 using WebLabRest.UI.Services;
 
 namespace WebLabRest.UI.Areas.Admin.Pages.Dishes;
@@ -27,6 +27,17 @@ public class IndexModel : PageModel
             Dish = response.Data.Items;
             CurrentPage = response.Data.CurrentPage;
             TotalPages = response.Data.TotalPages;
+        }
+    }
+
+    public async Task OnGetAsync(int pageNo = 1)
+    {
+        var result = await _productService.GetProductListAsync(null, pageNo);
+        if (result.Success)
+        {
+            Dish = result.Data.Items;
+            CurrentPage = result.Data.CurrentPage;
+            TotalPages = result.Data.TotalPages;
         }
     }
 }

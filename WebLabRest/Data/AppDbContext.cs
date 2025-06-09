@@ -11,5 +11,14 @@ namespace WebLabRest.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Dish> Dishes { get; set; }
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=MenuDb.db");
+        }
+
     }
+
+
+
 }
