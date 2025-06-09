@@ -1,5 +1,6 @@
-## Лабораторная работа №6
-REST API
+## Лабораторная работа №7 Razor Pages.
+Знакомство со сценарием веб-приложений Razor Pages.
+
 
 http://localhost:5176/swagger/index.html 
 

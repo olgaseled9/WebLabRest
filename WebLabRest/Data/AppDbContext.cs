@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebLab.Entities;
+using WebLabRest.Models;
 
 namespace WebLabRest.Data
 {
