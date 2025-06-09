@@ -45,3 +45,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
