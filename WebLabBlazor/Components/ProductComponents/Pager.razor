@@ -3,35 +3,36 @@
 @implements IDisposable
 @rendermode InteractiveServer
 
-<div class="btn-group">
-    <button disabled="@(ProductService.CurrentPage == 1)" 
-            @onclick="() => OnPageSelected(ProductService.CurrentPage - 1)">
-        Назад
+<div class="btn-group mt-3">
+    <button class="btn btn-outline-primary @(previousEnabled ? "" : "disabled")"
+            @onclick="@(() => OnPageSelected(ProductService.CurrentPage - 1))">
+        &laquo;
     </button>
-    
+
     @for (int i = 1; i <= ProductService.TotalPages; i++)
     {
-        <button class="btn @(i == ProductService.CurrentPage ? "btn-primary" : "btn-secondary")"
-                @onclick="() => OnPageSelected(i)">
-            @i
+        var page = i;
+        <button class="btn btn-outline-primary @(IsActive(page) ? "active" : "")"
+                @onclick="@(() => OnPageSelected(page))">
+            @page
         </button>
     }
-    
-    <button disabled="@(ProductService.CurrentPage == ProductService.TotalPages)" 
-            @onclick="() => OnPageSelected(ProductService.CurrentPage + 1)">
-        Вперед
+
+    <button class="btn btn-outline-primary @(nextEnabled ? "" : "disabled")"
+            @onclick="@(() => OnPageSelected(ProductService.CurrentPage + 1))">
+        &raquo;
     </button>
 </div>
 
 @code {
-    [CascadingParameter] public IProductService<Dish> ProductService { get; set; } = null!;
+    [CascadingParameter] public IProductService<Dish> ProductService { get; set; }
 
-    protected override void OnInitialized() 
-        => ProductService.ListChanged += StateHasChanged;
+    bool previousEnabled => ProductService.CurrentPage > 1;
+    bool nextEnabled => ProductService.CurrentPage < ProductService.TotalPages;
+    bool IsActive(int page) => page == ProductService.CurrentPage;
 
-    private async Task OnPageSelected(int pageNo) 
-        => await ProductService.GetProducts(pageNo);
+    protected override void OnInitialized() => ProductService.ListChanged += StateHasChanged;
+    void IDisposable.Dispose() => ProductService.ListChanged -= StateHasChanged;
 
-    public void Dispose() 
-        => ProductService.ListChanged -= StateHasChanged;
+    async void OnPageSelected(int pageNo) => await ProductService.GetProducts(pageNo);
 }

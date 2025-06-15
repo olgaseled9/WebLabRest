@@ -1,0 +1,37 @@
+@using WebLabBlazor.Services
+@using WebLabRest.Models
+@implements IDisposable
+@rendermode InteractiveServer
+
+@if (ProductService.Products?.Any() == true)
+{
+    <table class="table table-striped">
+        <thead>
+        <tr><th>Название</th><th></th></tr>
+        </thead>
+        <tbody>
+        @foreach (var item in ProductService.Products)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <button class="btn btn-outline-dark"
+                            @onclick="@(() => OnDishSelected(item.Id))">
+                        Подробно
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    [CascadingParameter] public IProductService<Dish> ProductService { get; set; }
+    [Parameter] public EventCallback<int> DishSelected { get; set; }
+
+    protected override void OnInitialized() => ProductService.ListChanged += StateHasChanged;
+    void IDisposable.Dispose() => ProductService.ListChanged -= StateHasChanged;
+
+    async void OnDishSelected(int id) => await DishSelected.InvokeAsync(id);
+}
