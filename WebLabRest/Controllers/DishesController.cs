@@ -6,7 +6,6 @@ using WebLabRest.UI.Services;
 
 namespace WebLabRest.Controllers;
 
-
 [Route("api/[controller]")]
 [ApiController]
 public class DishesController : ControllerBase

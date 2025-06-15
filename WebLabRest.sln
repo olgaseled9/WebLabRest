@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLabRest", "WebLabRest\WebLabRest.csproj", "{08387EBD-2A2A-4C14-BBB4-D372F2EAF789}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLabRest.Tests", "WebLabRest.Tests\WebLabRest.Tests.csproj", "{2930B045-CDC2-43B7-A06E-894CA3E1A257}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{08387EBD-2A2A-4C14-BBB4-D372F2EAF789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08387EBD-2A2A-4C14-BBB4-D372F2EAF789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08387EBD-2A2A-4C14-BBB4-D372F2EAF789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2930B045-CDC2-43B7-A06E-894CA3E1A257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2930B045-CDC2-43B7-A06E-894CA3E1A257}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2930B045-CDC2-43B7-A06E-894CA3E1A257}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2930B045-CDC2-43B7-A06E-894CA3E1A257}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
