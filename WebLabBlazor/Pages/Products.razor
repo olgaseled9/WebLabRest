@@ -1,0 +1,24 @@
+namespace WebLabBlazor.Pages;
+
+@page "/products"
+@using Microsoft.AspNetCore.Components.Web
+@using WebLabBlazor.Services
+@using WebLabRest.Models
+@rendermode @RenderMode.InteractiveServer
+@inject IProductService<Dish> ProductService
+
+<CascadingValue Value="ProductService">
+<DishesList DishSelected="ShowDetails" />
+<Pager />
+</CascadingValue>
+<DishDetails Dish="SelectedDish" />
+
+@code {
+private Dish SelectedDish { get; set; } = null!;
+
+protected override async Task OnInitializedAsync() 
+    => await ProductService.GetProducts();
+
+private void ShowDetails(int id) 
+    => SelectedDish = ProductService.Products.First(d => d.Id == id);
+}

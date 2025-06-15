@@ -1,0 +1,18 @@
+@using WebLabRest.Models
+@rendermode InteractiveServer
+
+@if (Dish != null)
+{
+    <div class="card">
+        <img src="@Dish.Image" class="card-img-top" />
+        <div class="card-body">
+            <h5>@Dish.Name</h5>
+            <p>@Dish.Description</p>
+            <span>Калории: @Dish.Calories</span>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public Dish Dish { get; set; } = null!;
+}
