@@ -3,36 +3,45 @@
 @implements IDisposable
 @rendermode InteractiveServer
 
-<div class="btn-group mt-3">
-    <button class="btn btn-outline-primary @(previousEnabled ? "" : "disabled")"
-            @onclick="@(() => OnPageSelected(ProductService.CurrentPage - 1))">
+<div class="btn-group mt-3" role="group" aria-label="Pager">
+    <!-- Кнопка Previous -->
+    <button type="button"
+            class="btn btn-outline-primary @(previousEnabled ? "" : "disabled")"
+            @onclick="() => OnPageSelected(ProductService.CurrentPage - 1)">
         &laquo;
     </button>
 
     @for (int i = 1; i <= ProductService.TotalPages; i++)
     {
         var page = i;
-        <button class="btn btn-outline-primary @(IsActive(page) ? "active" : "")"
-                @onclick="@(() => OnPageSelected(page))">
-            @page
+        <button type="button"
+                class="btn btn-outline-primary @(IsActive(page) ? "active" : "")"
+                @onclick="() => OnPageSelected(page)">
         </button>
     }
 
-    <button class="btn btn-outline-primary @(nextEnabled ? "" : "disabled")"
-            @onclick="@(() => OnPageSelected(ProductService.CurrentPage + 1))">
+    <!-- Кнопка Next -->
+    <button type="button"
+            class="btn btn-outline-primary @(nextEnabled ? "" : "disabled")"
+            @onclick="() => OnPageSelected(ProductService.CurrentPage + 1)">
         &raquo;
     </button>
 </div>
 
 @code {
-    [CascadingParameter] public IProductService<Dish> ProductService { get; set; }
+    [CascadingParameter]
+    public IProductService<Dish> ProductService { get; set; } = default!;
 
     bool previousEnabled => ProductService.CurrentPage > 1;
-    bool nextEnabled => ProductService.CurrentPage < ProductService.TotalPages;
+    bool nextEnabled     => ProductService.CurrentPage < ProductService.TotalPages;
     bool IsActive(int page) => page == ProductService.CurrentPage;
 
-    protected override void OnInitialized() => ProductService.ListChanged += StateHasChanged;
-    void IDisposable.Dispose() => ProductService.ListChanged -= StateHasChanged;
+    protected override void OnInitialized()
+        => ProductService.ListChanged += StateHasChanged;
 
-    async void OnPageSelected(int pageNo) => await ProductService.GetProducts(pageNo);
+    void IDisposable.Dispose()
+        => ProductService.ListChanged -= StateHasChanged;
+
+    async void OnPageSelected(int pageNo)
+        => await ProductService.GetProducts(pageNo);
 }
