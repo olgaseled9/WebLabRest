@@ -14,8 +14,12 @@ namespace WebLabRest.Data
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=MenuDb.db");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=MenuDb.db");
+            }
         }
+
 
     }
 
