@@ -3,6 +3,7 @@
 @implements IDisposable
 @rendermode InteractiveServer
 
+<h3>Список</h3>
 @if (ProductService.Products?.Any() == true)
 {
     <table class="table table-striped">
@@ -16,7 +17,7 @@
                 <td>@item.Name</td>
                 <td>
                     <button class="btn btn-outline-dark"
-                            @onclick="@(() => OnDishSelected(item.Id))">
+                            @onclick="() => OnSelected(item.Id)">
                         Подробно
                     </button>
                 </td>
@@ -27,11 +28,18 @@
 }
 
 @code {
-    [CascadingParameter] public IProductService<Dish> ProductService { get; set; }
-    [Parameter] public EventCallback<int> DishSelected { get; set; }
+    [CascadingParameter]
+    public IProductService<Dish> ProductService { get; set; } = default!;
 
-    protected override void OnInitialized() => ProductService.ListChanged += StateHasChanged;
-    void IDisposable.Dispose() => ProductService.ListChanged -= StateHasChanged;
+    [Parameter]
+    public EventCallback<int> DishSelected { get; set; }
 
-    async void OnDishSelected(int id) => await DishSelected.InvokeAsync(id);
+    protected override void OnInitialized()
+        => ProductService.ListChanged += StateHasChanged;
+
+    void IDisposable.Dispose()
+        => ProductService.ListChanged -= StateHasChanged;
+
+    async void OnSelected(int id)
+        => await DishSelected.InvokeAsync(id);
 }

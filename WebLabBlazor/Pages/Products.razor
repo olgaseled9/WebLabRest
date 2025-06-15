@@ -1,8 +1,8 @@
 @page "/products"
+@using WebLabBlazor.Components.ProductComponents
 @using WebLabBlazor.Services
 @using WebLabRest.Models
 @inject IProductService<Dish> ProductService
-@using WebLabBlazor.Components.ProductComponents
 
 <CascadingValue Value="ProductService">
     <DishesList DishSelected="ShowDetails" />
@@ -12,7 +12,7 @@
 <DishDetails Dish="SelectedDish" />
 
 @code {
-    public Dish SelectedDish { get; set; } = new();
+    public Dish? SelectedDish { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
